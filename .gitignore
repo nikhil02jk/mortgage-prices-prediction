@@ -1,0 +1,23 @@
+# Virtual environments
+venv/
+prophet_env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter
+*.ipynb
+*.ipynb_checkpoints/
+
+# Data files
+*.csv
+*.xlsx
+*.pkl
+
+# VSCode / IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store

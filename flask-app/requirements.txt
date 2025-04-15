@@ -1,0 +1,9 @@
+flask
+pandas
+prophet==1.1.1
+cmdstanpy==1.0.4
+matplotlib
+gunicorn
+holidays==0.24
+google-cloud-storage
+flask-cors
