@@ -1,11 +1,38 @@
+# steps:
+#   - name: 'gcr.io/cloud-builders/docker'
+#     dir: 'flask-app'
+#     args: ['build', '-t', 'us-central1-docker.pkg.dev/pacific-song-453900-p7/bigdata/new-flask-api', '.']
+
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args: ['push', 'us-central1-docker.pkg.dev/pacific-song-453900-p7/bigdata/new-flask-api']
+
+#   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#     entrypoint: gcloud
+#     args:
+#       - 'run'
+#       - 'deploy'
+#       - 'new-flask-api'
+#       - '--image'
+#       - 'us-central1-docker.pkg.dev/pacific-song-453900-p7/bigdata/new-flask-api'
+#       - '--region'
+#       - 'us-central1'
+#       - '--platform'
+#       - 'managed'
+#       - '--allow-unauthenticated'
+
+# images:
+#   - 'us-central1-docker.pkg.dev/pacific-song-453900-p7/bigdata/new-flask-api'
 steps:
+  # Step to build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'flask-app'
     args: ['build', '-t', 'us-central1-docker.pkg.dev/pacific-song-453900-p7/bigdata/new-flask-api', '.']
 
+  # Step to push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/pacific-song-453900-p7/bigdata/new-flask-api']
 
+  # Step to deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
@@ -20,5 +47,17 @@ steps:
       - 'managed'
       - '--allow-unauthenticated'
 
+  # Add your new step that just prints 'Hello world!'
+  - name: 'bash'
+    args: ['-c', 'echo Hello world!']
+
 images:
   - 'us-central1-docker.pkg.dev/pacific-song-453900-p7/bigdata/new-flask-api'
+
+logsBucket: 'gs://logging_bucket02'
+
+serviceAccount: 'flask-app-service-account-871@pacific-song-453900-p7.iam.gserviceaccount.com'
+
+options:
+  logging: GCS_ONLY
+
